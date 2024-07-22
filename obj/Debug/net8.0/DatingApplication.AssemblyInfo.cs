@@ -11,11 +11,12 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-DatingApplication-7e9a4ad7-c31b-4d1a-9048-9d5d8cfa22be")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("DatingApplication")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+072594d1336a3a8fdcc55982919d8f14ac213e39")]
 [assembly: System.Reflection.AssemblyProductAttribute("DatingApplication")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DatingApplication")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

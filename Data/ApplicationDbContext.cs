@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using DatingApplication.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApplication.Data
@@ -9,5 +10,6 @@ namespace DatingApplication.Data
             : base(options)
         {
         }
+        public DbSet<ApplicationUser>ApplicationUsers { get; set; }
     }
 }
