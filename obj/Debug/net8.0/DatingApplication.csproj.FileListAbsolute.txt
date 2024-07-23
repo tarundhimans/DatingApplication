@@ -585,3 +585,4 @@ E:\New folder (3)\DatingApplication\obj\Debug\net8.0\refint\DatingApplication.dl
 E:\New folder (3)\DatingApplication\obj\Debug\net8.0\DatingApplication.pdb
 E:\New folder (3)\DatingApplication\obj\Debug\net8.0\DatingApplication.genruntimeconfig.cache
 E:\New folder (3)\DatingApplication\obj\Debug\net8.0\ref\DatingApplication.dll
+E:\New folder (3)\DatingApplication\bin\Debug\net8.0\libman.json

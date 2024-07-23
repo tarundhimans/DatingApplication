@@ -31,6 +31,15 @@
                           <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Profiles" asp-action="Index">Profile</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" id="notificationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Notifications <span id="notificationCount" class="badge bg-danger">0</span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="notificationsDropdown" id="notificationsList">
+                                <li><a class="dropdown-item" href="#">No new notifications</a></li>
+                            </ul>
+                        </li>
+
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -51,6 +60,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.3/signalr.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

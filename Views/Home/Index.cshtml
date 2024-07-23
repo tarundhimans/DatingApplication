@@ -1,7 +1,5 @@
-﻿@model IEnumerable<DatingApplication.Models.Profile>
-
-@{
-    ViewData["Title"] = "Home";
+﻿@{
+    ViewData["Title"] = "Profiles";
 }
 
 <div class="container mt-4">
@@ -32,9 +30,13 @@
                         <p><strong>Gender:</strong> @profile.Gender</p>
                         <p><strong>Interested In:</strong> @profile.InterestedIn</p>
                     </div>
-                    <div class="card-actions">
-                        <button class="btn btn-like"><i class="fas fa-thumbs-up"></i> Like</button>
-                        <button class="btn btn-dislike"><i class="fas fa-thumbs-down"></i> Dislike</button>
+                     <div class="card-actions">
+                        <button class="btn btn-like" data-profile-id="@profile.Id">
+                            <i class="fas fa-thumbs-up"></i> Like
+                        </button>
+                        <button class="btn btn-dislike" data-profile-id="@profile.Id">
+                            <i class="fas fa-thumbs-down"></i> Dislike
+                        </button>
                     </div>
                 </div>
             </div>
@@ -44,7 +46,68 @@
 </div>
 
 @section Scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.13/signalr.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', async function () {
+                const connection = new signalR.HubConnectionBuilder()
+                    .withUrl("/chatHub")
+                    .build();
+
+                await connection.start();
+
+                connection.on("ReceiveNotification", function (message) {
+                    const notificationCount = document.getElementById('notificationCount');
+                    const notificationsList = document.getElementById('notificationsList');
+
+                    // Add new notification to the list
+                    const newNotification = document.createElement('li');
+                    newNotification.innerHTML = `<a class="dropdown-item" href="#">${message}</a>`;
+                    notificationsList.insertBefore(newNotification, notificationsList.firstChild);
+
+                    // Update the notification count
+                    let count = parseInt(notificationCount.textContent) || 0;
+                    notificationCount.textContent = (count + 1).toString();
+                });
+
+                // Handle like and dislike actions
+                document.querySelectorAll('.btn-like').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const profileId = this.dataset.profileId;
+
+                        fetch(`/Match/LikeProfile?profileId=${profileId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        }).then(response => {
+                            if (response.ok) {
+                                console.log('Profile liked!');
+                            }
+                        }).catch(error => console.error('Error:', error));
+                    });
+                });
+
+                document.querySelectorAll('.btn-dislike').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const profileId = this.dataset.profileId;
+
+                        fetch(`/Match/DislikeProfile?profileId=${profileId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        }).then(response => {
+                            if (response.ok) {
+                                console.log('Profile disliked!');
+                            }
+                        }).catch(error => console.error('Error:', error));
+                    });
+                });
+            });
+        </script>
+
+
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const cards = document.querySelectorAll('.swipe-card');
@@ -116,7 +179,7 @@
             });
         });
     </script>
-
+}
     <style>
         .swipe-container {
             position: relative;

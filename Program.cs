@@ -1,5 +1,6 @@
 using DatingApplication;
 using DatingApplication.Data;
+using DatingApplication.Hubs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -52,6 +53,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
-//app.MapHub<ChatHub>("/chatHub");
+app.MapHub<ChatHub>("/chatHub");
+//app.MapHub<NotificationHub>("/notificationHub");
 
 app.Run();
