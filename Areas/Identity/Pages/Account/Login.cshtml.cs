@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using DatingApplication.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace DatingApplication.Areas.Identity.Pages.Account
 {
@@ -21,11 +23,13 @@ namespace DatingApplication.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, ApplicationDbContext context)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _context = context;
         }
 
         /// <summary>
@@ -109,12 +113,31 @@ namespace DatingApplication.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+
+                    // Get the user ID of the logged-in user
+                    var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
+                    if (user != null)
+                    {
+                        // Check if the user has a profile
+                        var profile = await _context.Profiles
+                            .FirstOrDefaultAsync(p => p.UserId == user.Id);
+
+                        if (profile != null)
+                        {
+                            // Redirect to the user's profile page
+                            return RedirectToAction("Index", "Profiles");
+                        }
+                        else
+                        {
+                            // Redirect to the profile creation page if no profile exists
+                            return RedirectToAction("Create", "Profiles");
+                        }
+                    }
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -133,8 +156,9 @@ namespace DatingApplication.Areas.Identity.Pages.Account
                 }
             }
 
-            // If we got this far, something failed, redisplay form
+          
             return Page();
         }
+
     }
 }

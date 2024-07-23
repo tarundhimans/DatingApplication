@@ -1,0 +1,137 @@
+﻿@model DatingApplication.Models.Profile
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center">Edit Your Profile</h1>
+
+    <form asp-action="Edit" method="post" enctype="multipart/form-data" class="profile-edit-form">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="UserId" />
+
+        <div class="form-group text-center">
+            <label asp-for="ProfilePicture" class="control-label"></label>
+
+            <!-- Display current profile picture -->
+            @if (Model.ProfilePicture != null && Model.ProfilePicture.Length > 0)
+            {
+                <div class="current-profile-picture mb-3">
+                    <img src="@($"data:image/jpeg;base64,{Convert.ToBase64String(Model.ProfilePicture)}")" alt="Profile Picture" class="profile-picture-preview" />
+                </div>
+            }
+            else
+            {
+                <div class="current-profile-picture mb-3">
+                    <img src="~/images/default-profile.png" alt="Default Profile Picture" class="profile-picture-preview" />
+                </div>
+            }
+
+            <!-- File input for uploading a new profile picture -->
+            <input asp-for="ProfilePicture" type="file" class="form-control-file" />
+            <span asp-validation-for="ProfilePicture" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Bio" class="control-label"></label>
+            <textarea asp-for="Bio" class="form-control" rows="3" placeholder="Tell us about yourself..."></textarea>
+            <span asp-validation-for="Bio" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Preferences" class="control-label"></label>
+            <input asp-for="Preferences" class="form-control" placeholder="What are your preferences?" />
+            <span asp-validation-for="Preferences" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Day" class="control-label"></label>
+            <input asp-for="Day" class="form-control" placeholder="Day" />
+            <span asp-validation-for="Day" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Month" class="control-label"></label>
+            <input asp-for="Month" class="form-control" placeholder="Month" />
+            <span asp-validation-for="Month" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Year" class="control-label"></label>
+            <input asp-for="Year" class="form-control" placeholder="Year" />
+            <span asp-validation-for="Year" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Gender" class="control-label"></label>
+            <select asp-for="Gender" class="form-control">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            <span asp-validation-for="Gender" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="InterestedIn" class="control-label"></label>
+            <select asp-for="InterestedIn" class="form-control">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            <span asp-validation-for="InterestedIn" class="text-danger"></span>
+        </div>  
+        <br/>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg">Save Changes</button>
+        </div>
+    </form>
+</div>
+
+@section Styles {
+    <style>
+        .profile-edit-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .current-profile-picture {
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .profile-picture-preview {
+            width: 150px; /* Adjust size as needed */
+            height: 150px; /* Keep aspect ratio */
+            border-radius: 50%; /* Circular profile picture */
+            object-fit: cover; /* Cover the area without distortion */
+        }
+
+        .form-control-file {
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            padding: 0.375rem 0.75rem;
+        }
+
+        .form-control {
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            padding: 0.375rem 0.75rem;
+        }
+
+        .btn-primary {
+            background-color: #ff5a5f; /* Tinder-like red color */
+            border-color: #ff5a5f;
+            color: #fff;
+        }
+
+            .btn-primary:hover {
+                background-color: #ff3b3f;
+                border-color: #ff3b3f;
+            }
+
+        .text-danger {
+            color: #dc3545;
+        }
+    </style>
+}

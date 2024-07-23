@@ -1,0 +1,67 @@
+﻿@model DatingApplication.Models.Profile
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center">Profile</h1>
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="card-content">
+                @if (Model.ProfilePicture != null && Model.ProfilePicture.Length > 0)
+                {
+                    <img src="@($"data:image/jpeg;base64,{Convert.ToBase64String(Model.ProfilePicture)}")" class="card-img" alt="Profile Picture">
+                }
+                else
+                {
+                    <img src="~/images/default-profile.png" class="card-img" alt="Default Profile Picture">
+                }
+                <div class="card-details">
+                    <h5 class="card-title">@Model.User.Name</h5>
+                    <p class="card-email"><strong>Email:</strong> @Model.User.Email</p>
+                    <p class="card-bio"><strong>Bio:</strong> @Model.Bio</p>
+                    <p><strong>Preferences:</strong> @Model.Preferences</p>
+                    <p><strong>Birthday:</strong> @($"{Model.Day}/{Model.Month}/{Model.Year}")</p>
+                    <p><strong>Gender:</strong> @Model.Gender</p>
+                    <p><strong>Interested In:</strong> @Model.InterestedIn</p>
+                </div>
+                <div class="card-actions text-center mt-2">
+                    <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-primary">Edit</a>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cards = document.querySelectorAll('.swipe-card');
+
+            cards.forEach(card => {
+                let posX = 0;
+                let posY = 0;
+
+                card.addEventListener('touchstart', (e) => {
+                    posX = e.touches[0].clientX;
+                    posY = e.touches[0].clientY;
+                });
+
+                card.addEventListener('touchmove', (e) => {
+                    const deltaX = e.touches[0].clientX - posX;
+                    const deltaY = e.touches[0].clientY - posY;
+
+                    card.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+                });
+
+                card.addEventListener('touchend', (e) => {
+                    card.style.transform = 'translate(0, 0)';
+                });
+            });
+        });
+    </script>
+}
