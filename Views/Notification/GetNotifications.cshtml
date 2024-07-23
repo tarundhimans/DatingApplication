@@ -1,0 +1,11 @@
+﻿@model IEnumerable<DatingApplication.Models.Notification>
+
+@foreach (var notification in Model)
+{
+    <li>
+        <a class="dropdown-item" href="#">
+            @notification.Message
+            <button class="btn btn-link mark-as-read" data-notification-id="@notification.Id">Mark as Read</button>
+        </a>
+    </li>
+}

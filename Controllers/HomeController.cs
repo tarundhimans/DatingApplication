@@ -8,7 +8,6 @@ using System.Security.Claims;
 
 namespace DatingApplication.Controllers
 {
-  
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -33,6 +32,40 @@ namespace DatingApplication.Controllers
 
             return View(profiles);
         }
+
+
+
+        [HttpPost]
+      
+        public async Task<IActionResult> LikeProfile(string matchedUserId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var match = new Match
+            {
+                UserId = userId,
+                MatchedUserId = matchedUserId,
+                IsLiked = true,
+                IsRejected = false
+            };
+
+            _context.Matches.Add(match);
+
+            var notification = new Notification
+            {
+                UserId = matchedUserId,
+                Message = "You have a new like!",
+                CreatedAt = DateTime.Now,
+                IsRead = false
+            };
+
+            _context.Notifications.Add(notification);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+
 
         public IActionResult Privacy()
         {

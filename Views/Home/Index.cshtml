@@ -1,5 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Profiles";
+﻿@model IEnumerable<DatingApplication.Models.Profile>
+
+@{
+    ViewData["Title"] = "Home";
 }
 
 <div class="container mt-4">
@@ -11,240 +13,179 @@
         <button class="swipe-arrow left-arrow">&#8592;</button>
         @foreach (var profile in Model)
         {
-            <div class="swipe-card">
-                <div class="card-content">
+                <div class="swipe-card">
+                    <div class="card-content">
                     @if (profile.ProfilePicture != null && profile.ProfilePicture.Length > 0)
                     {
-                        <img src="@($"data:image/jpeg;base64,{Convert.ToBase64String(profile.ProfilePicture)}")" class="card-img" alt="Profile Picture">
+                                <img src="@($"data:image/jpeg;base64,{Convert.ToBase64String(profile.ProfilePicture)}")" class="card-img" alt="Profile Picture">
                     }
                     else
                     {
-                        <img src="~/images/default-profile.png" class="card-img" alt="Default Profile Picture">
+                                <img src="~/images/default-profile.png" class="card-img" alt="Default Profile Picture">
                     }
-                    <div class="card-details">
-                        <h5 class="card-title">@profile.User.Name</h5>
-                        <p class="card-email"><strong>Email:</strong> @profile.User.Email</p>
-                        <p class="card-bio"><strong>Bio:</strong> @profile.Bio</p>
-                        <p><strong>Preferences:</strong> @profile.Preferences</p>
-                        <p><strong>Birthday:</strong> @($"{profile.Day}/{profile.Month}/{profile.Year}")</p>
-                        <p><strong>Gender:</strong> @profile.Gender</p>
-                        <p><strong>Interested In:</strong> @profile.InterestedIn</p>
-                    </div>
-                     <div class="card-actions">
-                        <button class="btn btn-like" data-profile-id="@profile.Id">
-                            <i class="fas fa-thumbs-up"></i> Like
-                        </button>
-                        <button class="btn btn-dislike" data-profile-id="@profile.Id">
-                            <i class="fas fa-thumbs-down"></i> Dislike
-                        </button>
+                        <div class="card-details">
+                            <h5 class="card-title">@profile.User.Name</h5>
+                            <p class="card-email"><strong>Email:</strong> @profile.User.Email</p>
+                            <p class="card-bio"><strong>Bio:</strong> @profile.Bio</p>
+                            <p><strong>Preferences:</strong> @profile.Preferences</p>
+                            <p><strong>Birthday:</strong> @($"{profile.Day}/{profile.Month}/{profile.Year}")</p>
+                            <p><strong>Gender:</strong> @profile.Gender</p>
+                            <p><strong>Interested In:</strong> @profile.InterestedIn</p>
+                        </div>
+                        <div class="card-actions">
+                            <form method="post" action="@Url.Action("LikeProfile", "Home")">
+                                <input type="hidden" name="matchedUserId" value="@profile.UserId" />
+                                <button type="submit" class="btn btn-like"><i class="fas fa-thumbs-up"></i> Like</button>
+                            
+                            <button class="btn btn-dislike"><i class="fas fa-thumbs-down"></i> Dislike</button>
+                                </form>
+                        </div>
                     </div>
                 </div>
-            </div>
         }
         <button class="swipe-arrow right-arrow">&#8594;</button>
     </div>
 </div>
 
 @section Scripts {
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.13/signalr.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
         <script>
-            document.addEventListener('DOMContentLoaded', async function () {
-                const connection = new signalR.HubConnectionBuilder()
-                    .withUrl("/chatHub")
-                    .build();
+            document.addEventListener('DOMContentLoaded', function () {
+                const cards = document.querySelectorAll('.swipe-card');
+                const leftArrow = document.querySelector('.left-arrow');
+                const rightArrow = document.querySelector('.right-arrow');
+                let currentIndex = 0;
 
-                await connection.start();
-
-                connection.on("ReceiveNotification", function (message) {
-                    const notificationCount = document.getElementById('notificationCount');
-                    const notificationsList = document.getElementById('notificationsList');
-
-                    // Add new notification to the list
-                    const newNotification = document.createElement('li');
-                    newNotification.innerHTML = `<a class="dropdown-item" href="#">${message}</a>`;
-                    notificationsList.insertBefore(newNotification, notificationsList.firstChild);
-
-                    // Update the notification count
-                    let count = parseInt(notificationCount.textContent) || 0;
-                    notificationCount.textContent = (count + 1).toString();
-                });
-
-                // Handle like and dislike actions
-                document.querySelectorAll('.btn-like').forEach(button => {
-                    button.addEventListener('click', function () {
-                        const profileId = this.dataset.profileId;
-
-                        fetch(`/Match/LikeProfile?profileId=${profileId}`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            }
-                        }).then(response => {
-                            if (response.ok) {
-                                console.log('Profile liked!');
-                            }
-                        }).catch(error => console.error('Error:', error));
+                function updateCardVisibility() {
+                    cards.forEach((card, index) => {
+                        card.style.display = index === currentIndex ? 'block' : 'none';
                     });
+                }
+
+                function swipeCard(deltaX) {
+                    const card = cards[currentIndex];
+                    card.style.transition = 'transform 0.5s ease';
+                    card.style.transform = `translate(${deltaX > 0 ? card.offsetWidth : -card.offsetWidth}px, 0)`;
+                    setTimeout(() => {
+                        currentIndex = (currentIndex + (deltaX > 0 ? 1 : -1) + cards.length) % cards.length;
+                        updateCardVisibility();
+                        card.style.transition = 'none';
+                        card.style.transform = 'translate(0, 0)';
+                    }, 500);
+                }
+
+                updateCardVisibility();
+
+                leftArrow.addEventListener('click', () => {
+                    swipeCard(-1);
                 });
 
-                document.querySelectorAll('.btn-dislike').forEach(button => {
-                    button.addEventListener('click', function () {
-                        const profileId = this.dataset.profileId;
+                rightArrow.addEventListener('click', () => {
+                    swipeCard(1);
+                });
 
-                        fetch(`/Match/DislikeProfile?profileId=${profileId}`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            }
-                        }).then(response => {
-                            if (response.ok) {
-                                console.log('Profile disliked!');
-                            }
-                        }).catch(error => console.error('Error:', error));
+                cards.forEach(card => {
+                    let posX = 0;
+                    let posY = 0;
+                    let isDragging = false;
+
+                    card.addEventListener('touchstart', (e) => {
+                        posX = e.touches[0].clientX;
+                        posY = e.touches[0].clientY;
+                        isDragging = true;
+                        card.style.transition = 'transform 0s'; 
+                    });
+
+                    card.addEventListener('touchmove', (e) => {
+                        if (isDragging) {
+                            const deltaX = e.touches[0].clientX - posX;
+                            const deltaY = e.touches[0].clientY - posY;
+
+                            card.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+                        }
+                    });
+
+                    card.addEventListener('touchend', (e) => {
+                        isDragging = false;
+                        const deltaX = e.changedTouches[0].clientX - posX;
+
+                        if (Math.abs(deltaX) > card.offsetWidth / 3) {
+                            swipeCard(deltaX);
+                        } else {
+
+                            card.style.transition = 'transform 0.5s ease';
+                            card.style.transform = 'translate(0, 0)';
+                        }
                     });
                 });
             });
         </script>
 
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const cards = document.querySelectorAll('.swipe-card');
-            const leftArrow = document.querySelector('.left-arrow');
-            const rightArrow = document.querySelector('.right-arrow');
-            let currentIndex = 0;
-
-            function updateCardVisibility() {
-                cards.forEach((card, index) => {
-                    card.style.display = index === currentIndex ? 'block' : 'none';
-                });
+        <style>
+            .swipe-container {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 400px;
+                transform: translateY(-20px); 
             }
 
-            function swipeCard(deltaX) {
-                const card = cards[currentIndex];
-                card.style.transition = 'transform 0.5s ease';
-                card.style.transform = `translate(${deltaX > 0 ? card.offsetWidth : -card.offsetWidth}px, 0)`;
-                setTimeout(() => {
-                    currentIndex = (currentIndex + (deltaX > 0 ? 1 : -1) + cards.length) % cards.length;
-                    updateCardVisibility();
-                    card.style.transition = 'none';
-                    card.style.transform = 'translate(0, 0)';
-                }, 500);
+            .swipe-card {
+                display: none;
+                position: absolute;
+                top: 30px;
             }
 
-            updateCardVisibility();
+                .swipe-card:first-child {
+                    display: block;
+                }
 
-            leftArrow.addEventListener('click', () => {
-                swipeCard(-1);
-            });
-
-            rightArrow.addEventListener('click', () => {
-                swipeCard(1);
-            });
-
-            cards.forEach(card => {
-                let posX = 0;
-                let posY = 0;
-                let isDragging = false;
-
-                card.addEventListener('touchstart', (e) => {
-                    posX = e.touches[0].clientX;
-                    posY = e.touches[0].clientY;
-                    isDragging = true;
-                    card.style.transition = 'transform 0s'; 
-                });
-
-                card.addEventListener('touchmove', (e) => {
-                    if (isDragging) {
-                        const deltaX = e.touches[0].clientX - posX;
-                        const deltaY = e.touches[0].clientY - posY;
-
-                        card.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-                    }
-                });
-
-                card.addEventListener('touchend', (e) => {
-                    isDragging = false;
-                    const deltaX = e.changedTouches[0].clientX - posX;
-
-                    if (Math.abs(deltaX) > card.offsetWidth / 3) {
-                        swipeCard(deltaX);
-                    } else {
-                      
-                        card.style.transition = 'transform 0.5s ease';
-                        card.style.transform = 'translate(0, 0)';
-                    }
-                });
-            });
-        });
-    </script>
-}
-    <style>
-        .swipe-container {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 400px;
-            transform: translateY(-20px); 
-        }
-
-        .swipe-card {
-            display: none;
-            position: absolute;
-            top: 30px;
-        }
-
-            .swipe-card:first-child {
-                display: block;
+            .swipe-arrow {
+                position: absolute;
+                top: 30%;
+                transform: translateY(-50%);
+                background: rgba(255, 255, 255, 0.8);
+                border: none;
+                font-size: 2rem;
+                cursor: pointer;
+                z-index: 10;
+                padding: 0.5rem 1rem;
+                border-radius: 50%;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
 
-        .swipe-arrow {
-            position: absolute;
-            top: 30%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.8);
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            z-index: 10;
-            padding: 0.5rem 1rem;
-            border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .left-arrow {
-            left: 20px;
-        }
-
-        .right-arrow {
-            right: 20px;
-        }
-
-        .card-img {
-            max-width: 100%;
-            border-radius: 10px;
-        }
-
-        .card-content {
-            text-align: center;
-        }
-
-        .card-details {
-            margin-top: 10px;
-        }
-
-        .btn-like, .btn-dislike {
-            border: none;
-            background: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            color: #007bff;
-        }
-
-            .btn-like:hover, .btn-dislike:hover {
-                color: #0056b3;
+            .left-arrow {
+                left: 20px;
             }
-    </style>
+
+            .right-arrow {
+                right: 20px;
+            }
+
+            .card-img {
+                max-width: 100%;
+                border-radius: 10px;
+            }
+
+            .card-content {
+                text-align: center;
+            }
+
+            .card-details {
+                margin-top: 10px;
+            }
+
+            .btn-like, .btn-dislike {
+                border: none;
+                background: none;
+                font-size: 1.2rem;
+                cursor: pointer;
+                color: #007bff;
+            }
+
+                .btn-like:hover, .btn-dislike:hover {
+                    color: #0056b3;
+                }
+        </style>
 }
