@@ -1,11 +1,11 @@
-﻿using DatingApplication.Data;
-using DatingApplication.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
-using System.Threading.Tasks;
+using DatingApplication.Models;
 using System.Linq;
+using DatingApplication.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace DatingApplication.Controllers
 {
@@ -19,36 +19,21 @@ namespace DatingApplication.Controllers
             _context = context;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> MarkAsRead(int notificationId)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var notification = await _context.Notifications
-                                             .FirstOrDefaultAsync(n => n.Id == notificationId && n.UserId == userId);
-
-            if (notification != null)
-            {
-                notification.IsRead = true;
-                _context.Update(notification);
-                await _context.SaveChangesAsync();
-                return Ok();
-            }
-
-            return NotFound();
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetUnreadCount()
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var unreadCount = await _context.Notifications.CountAsync(n => n.UserId == userId && !n.IsRead);
-
-            return Ok(unreadCount);
-        }
-
-        [HttpGet]
         [HttpGet]
         public async Task<IActionResult> GetNotifications()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var notifications = await _context.Notifications
+                                              .Where(n => n.UserId == userId && !n.IsRead)
+                                              .OrderByDescending(n => n.CreatedAt)
+                                              .ToListAsync();
+
+            var notificationList = notifications.Select(n => new { message = n.Message }).ToList();
+
+            return Json(new { notifications = notificationList });
+        }
+
+        public async Task<IActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var notifications = await _context.Notifications
@@ -56,8 +41,11 @@ namespace DatingApplication.Controllers
                                               .OrderByDescending(n => n.CreatedAt)
                                               .ToListAsync();
 
-            return PartialView("_NotificationsList", notifications);
-        }
+            ViewBag.NotificationCount = notifications.Count;
+            ViewBag.Notifications = notifications;
 
+            return View(notifications);
+        }
     }
+
 }

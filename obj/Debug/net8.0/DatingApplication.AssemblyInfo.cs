@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DatingApplication")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2a2768e31167cd106074e211af82de4e8d6b5bdd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4c9518d5f3b78691622e12cc2ad793f551480085")]
 [assembly: System.Reflection.AssemblyProductAttribute("DatingApplication")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DatingApplication")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

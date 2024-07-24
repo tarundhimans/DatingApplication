@@ -1,6 +1,6 @@
 using DatingApplication;
 using DatingApplication.Data;
-
+using DatingApplication.Hubs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +24,7 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddSignalR();
+builder.Services.AddSession();
 
 
 var app = builder.Build();
@@ -48,12 +49,13 @@ app.UseRouting();
 
 app.UseAuthentication(); 
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
-//app.MapHub<ChatHub>("/chatHub");
+app.MapHub<ChatHub>("/chatHub");
 //app.MapHub<NotificationHub>("/notificationHub");
 
 app.Run();

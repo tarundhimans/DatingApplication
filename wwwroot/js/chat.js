@@ -1,30 +1,66 @@
-﻿//"use strict";
+﻿"use strict";
 
-//var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+// Initialize SignalR connection
+var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
-////Disable the send button until connection is established.
-//document.getElementById("sendButton").disabled = true;
+var sendButton = document.getElementById("sendButton");
+// Check if the element exists before setting properties
+if (sendButton) {
+    sendButton.disabled = true;
+}
 
-//connection.on("ReceiveMessage", function (user, message) {
-//    var li = document.createElement("li");
-//    document.getElementById("messagesList").appendChild(li);
-//    // We can assign user-supplied strings to an element's textContent because it
-//    // is not interpreted as markup. If you're assigning in any other way, you 
-//    // should be aware of possible script injection concerns.
-//    li.textContent = `${user} says ${message}`;
-//});
+// Handle incoming messages
+connection.on("ReceiveMessage", function (user, message) {
+    var li = document.createElement("li");
+    document.getElementById("messagesList").appendChild(li);
+    li.textContent = `${user} says ${message}`;
+});
 
-//connection.start().then(function () {
-//    document.getElementById("sendButton").disabled = false;
-//}).catch(function (err) {
-//    return console.error(err.toString());
-//});
+var notificationCount = 0;
 
-//document.getElementById("sendButton").addEventListener("click", function (event) {
-//    var user = document.getElementById("userInput").value;
-//    var message = document.getElementById("messageInput").value;
-//    connection.invoke("SendMessage", user, message).catch(function (err) {
-//        return console.error(err.toString());
-//    });
-//    event.preventDefault();
-//});
+// Handle incoming notifications
+connection.on("ReceiveNotification", function (message) {
+    var notificationsList = document.getElementById("notificationsList");
+    var notificationCountElement = document.getElementById("notificationCount");
+
+    var li = document.createElement("li");
+    li.classList.add("dropdown-item");
+    li.textContent = message;
+
+    notificationsList.insertBefore(li, notificationsList.firstChild);
+
+    notificationCount++;
+    notificationCountElement.textContent = notificationCount;
+    notificationCountElement.classList.remove("d-none");
+});
+
+
+// Start the connection
+connection.start().catch(function (err) {
+    return console.error(err.toString());
+});
+
+
+// Handle Like button click
+document.querySelectorAll(".btn-like").forEach(function (button) {
+    button.addEventListener("click", function () {
+        var userId = button.getAttribute("data-user-id");
+        var message = "Like your post!";
+        connection.invoke("SendNotification", userId, message).catch(function (err) {
+            return console.error(err.toString());
+        });
+    });
+});
+
+// Handle Dislike button click
+document.querySelectorAll(".btn-dislike").forEach(function (button) {
+    button.addEventListener("click", function () {
+        var userId = button.getAttribute("data-user-id");
+        var message = "Dislike your post!";
+        connection.invoke("SendNotification", userId, message).catch(function (err) {
+            return console.error(err.toString());
+        });
+    });
+});
+
+

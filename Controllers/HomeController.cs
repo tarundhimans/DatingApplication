@@ -33,6 +33,19 @@ namespace DatingApplication.Controllers
             return View(profiles);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> SearchProfiles(string query)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var profiles = await _context.Profiles
+                .Include(p => p.User)
+                .Where(p => p.UserId != userId && (p.User.Name.Contains(query) || p.User.Email.Contains(query) || p.Bio.Contains(query)))
+                .ToListAsync();
+
+            return PartialView("_ProfilesList", profiles);
+        }
+
 
 
         [HttpPost]

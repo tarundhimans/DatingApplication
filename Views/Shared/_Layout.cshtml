@@ -6,6 +6,10 @@
     <title>@ViewData["Title"] - DatingApplication</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Include Bootstrap CSS and JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="~/DatingApplication.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
@@ -25,71 +29,23 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                       @*  <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        @*  <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li> *@
-                          <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Profiles" asp-action="Index">Profile</a>
                         </li>
-                       <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle text-dark" id="notificationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Notifications <span id="notificationCount" class="badge bg-danger d-none">0</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="notificationsDropdown" id="notificationsList">
-        <li><a class="dropdown-item" href="#">No new notifications</a></li>
-    </ul>
-</li>
-
-@section Scripts {
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            function updateNotificationCount() {
-                fetch('/Notification/GetUnreadCount')
-                    .then(response => response.json())
-                    .then(count => {
-                        const notificationCountElement = document.getElementById('notificationCount');
-                        notificationCountElement.textContent = count;
-                        if (count > 0) {
-                            notificationCountElement.classList.remove('d-none');
-                        } else {
-                            notificationCountElement.classList.add('d-none');
-                        }
-                    });
-            }
-
-            function loadNotifications() {
-                fetch('/Notification/GetNotifications')
-                    .then(response => response.text())
-                    .then(html => {
-                        document.getElementById('notificationsList').innerHTML = html;
-                    });
-            }
-
-            // Periodic polling for new notifications
-            setInterval(updateNotificationCount, 1000); // Check every 10 seconds
-
-            document.getElementById('notificationsDropdown').addEventListener('click', function () {
-                loadNotifications();
-            });
-
-            document.getElementById('notificationsList').addEventListener('click', function (e) {
-                if (e.target.classList.contains('mark-as-read')) {
-                    const notificationId = e.target.dataset.notificationId;
-                    fetch(`/Notification/MarkAsRead?notificationId=${notificationId}`, { method: 'POST' })
-                        .then(response => {
-                            if (response.ok) {
-                                e.target.closest('li').remove();
-                                updateNotificationCount();
-                            }
-                        });
-                }
-            });
-
-            updateNotificationCount();
-        });
-    </script>
-}
-
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" id="notificationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Notifications <span id="notificationCount" class="badge bg-danger d-none">0</span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="notificationsDropdown" id="notificationsList">
+                                <li class="dropdown-item">Loading notifications...</li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Chat" asp-action="Index">Chat</a>
+                        </li>
 
 
 
@@ -113,7 +69,52 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.3/signalr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.3/signalr.min.js"></script>
+     <script>
+        $(document).ready(function () {
+            function fetchNotifications() {
+                $.ajax({
+                    url: '@Url.Action("GetNotifications", "Notification")',
+                    method: 'GET',
+                    success: function (result) {
+                        var notificationsList = $('#notificationsList');
+                        notificationsList.empty();
+
+                        if (result.notifications.length > 0) {
+                            result.notifications.forEach(function (notification) {
+                                notificationsList.append('<li class="dropdown-item">' + notification.message + '</li>');
+                            });
+                            $('#notificationCount').text(result.notifications.length).removeClass('d-none');
+                        } else {
+                            notificationsList.append('<li class="dropdown-item">No new notifications</li>');
+                            $('#notificationCount').addClass('d-none');
+                        }
+                    },
+                    error: function (err) {
+                        console.error('Error fetching notifications:', err);
+                    }
+                });
+            }
+
+            // Fetch notifications on page load
+            fetchNotifications();
+
+            // Set up SignalR connection
+            var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+            connection.on("ReceiveNotification", function (message) {
+                fetchNotifications();
+            });
+
+            connection.start().catch(function (err) {
+                return console.error(err.toString());
+            });
+
+            // Fetch notifications periodically
+            setInterval(fetchNotifications, 2000); // Every 60 seconds
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

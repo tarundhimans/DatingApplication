@@ -6,9 +6,9 @@
 
 <div class="container mt-4">
     <h1 class="text-center">All Profiles</h1>
-    <div class="search-container text-center mb-4">
+ @*    <div class="search-container text-center mb-4">
         <input type="text" id="search-input" class="form-control" placeholder="Search profiles..." style="max-width: 400px; margin: 0 auto;">
-    </div>
+    </div> *@
     <div class="swipe-container position-relative d-flex justify-content-center align-items-center">
         <button class="swipe-arrow left-arrow">&#8592;</button>
         @foreach (var profile in Model)
@@ -32,14 +32,10 @@
                             <p><strong>Gender:</strong> @profile.Gender</p>
                             <p><strong>Interested In:</strong> @profile.InterestedIn</p>
                         </div>
-                        <div class="card-actions">
-                            <form method="post" action="@Url.Action("LikeProfile", "Home")">
-                                <input type="hidden" name="matchedUserId" value="@profile.UserId" />
-                                <button type="submit" class="btn btn-like"><i class="fas fa-thumbs-up"></i> Like</button>
-                            
-                            <button class="btn btn-dislike"><i class="fas fa-thumbs-down"></i> Dislike</button>
-                                </form>
-                        </div>
+                            <div class="card-actions">
+                                 <button class="btn btn-like"  data-user-id="@profile.UserId"><i class="fas fa-thumbs-up"></i> Like</button>
+                    <button class="btn btn-dislike" data-user-id="@profile.UserId"><i class="fas fa-thumbs-down"></i> Dislike</button>
+                </div>
                     </div>
                 </div>
         }
@@ -49,6 +45,7 @@
 
 @section Scripts {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
+    <script src="~/js/chat.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const cards = document.querySelectorAll('.swipe-card');
@@ -120,7 +117,8 @@
                 });
             });
         </script>
-
+        }
+        
         <style>
             .swipe-container {
                 position: relative;
@@ -188,4 +186,4 @@
                     color: #0056b3;
                 }
         </style>
-}
+

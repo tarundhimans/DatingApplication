@@ -1,0 +1,27 @@
+﻿@model IEnumerable<DatingApplication.Models.Notification>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notifications</title>
+</head>
+<body>
+    <h2>Notifications</h2>
+    <ul id="notificationsList">
+        @if (Model.Any())
+        {
+            foreach (var notification in Model)
+            {
+                <li class="dropdown-item">@notification.Message</li>
+            }
+        }
+        else
+        {
+            <li class="dropdown-item">No new notifications</li>
+        }
+    </ul>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.14/signalr.min.js"></script>
+    <script src="~/js/chat.js"></script>
+</body>
+</html>

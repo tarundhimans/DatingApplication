@@ -53,13 +53,14 @@ body {
     align-items: center;
     width: 100%;
 }
-
 .card-img {
-    width: 40%; /* Adjust this value to make the profile picture smaller */
-    height: auto;
-    border-radius: 50%; /* Optional: makes the profile picture round */
-    object-fit: cover;
-    margin-top: 16px;
+    width: 40px; /* Set a fixed width for the profile picture */
+    height: 300px; /* Set a fixed height to match the width */
+    border-radius: 50%; /* Makes the profile picture round */
+    object-fit: cover; /* Ensures the image covers the container without distortion */
+    margin-top: 16px; /* Space above the profile picture */
+    display: block; /* Ensures margin works correctly */
+    overflow: hidden; /* Prevents overflow if the image is too large */
 }
 
 .card-details {
