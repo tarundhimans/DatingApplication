@@ -20,11 +20,17 @@ namespace DatingApplication.Hubs
         }
         public async Task SendNotification(string userId, string message)
         {
+            // Get sender's details
+            var senderId = Context.UserIdentifier; // or fetch the sender's ID in another way
+            var sender = await _context.Users.FindAsync(senderId);
+            var senderName = sender?.UserName; // or sender.Email if preferred
+            var createdAt = DateTime.UtcNow;
+
             // Save notification to the database
             var notification = new Notification
             {
                 UserId = userId,
-                Message = message,
+                Message = $"{senderName}: {message}",
                 CreatedAt = DateTime.UtcNow,
                 IsRead = false
             };
@@ -32,7 +38,8 @@ namespace DatingApplication.Hubs
             await _context.SaveChangesAsync();
 
             // Send notification to the user via SignalR
-            await Clients.User(userId).SendAsync("ReceiveNotification", message);
+            await Clients.User(userId).SendAsync("ReceiveNotification", senderName, message);
         }
+
     }
 }

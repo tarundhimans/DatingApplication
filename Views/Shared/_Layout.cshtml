@@ -114,6 +114,58 @@
             setInterval(fetchNotifications, 2000); // Every 60 seconds
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("notificationsList").addEventListener("click", function (event) {
+                var target = event.target;
+
+                if (target.classList.contains("dropdown-item")) {
+                    var notificationId = target.getAttribute("data-id");
+
+                    if (notificationId) {
+                        // Mark notification as read
+                        fetch(`/Notification/MarkAsRead/${notificationId}`, {
+                            method: 'POST'
+                        }).then(function () {
+                            // Redirect to notification details page
+                            window.location.href = `/Notification/Details/${notificationId}`;
+                        });
+                    } else {
+                        console.error("Notification ID is null");
+                    }
+                }
+            });
+
+            // Update notifications from the server
+            function loadNotifications() {
+                fetch('/Notification/GetNotifications')
+                    .then(response => response.json())
+                    .then(data => {
+                        var notificationsList = document.getElementById("notificationsList");
+                        var notificationCountElement = document.getElementById("notificationCount");
+
+                        notificationsList.innerHTML = ''; // Clear existing items
+                        if (data.notifications.length > 0) {
+                            data.notifications.forEach(notification => {
+                                var li = document.createElement("li");
+                                li.classList.add("dropdown-item");
+                                li.setAttribute("data-id", notification.id);
+                                li.textContent = notification.message;
+                                notificationsList.appendChild(li);
+                            });
+                            notificationCountElement.textContent = data.notifications.length;
+                            notificationCountElement.classList.remove("d-none");
+                        } else {
+                            notificationsList.innerHTML = '<li class="dropdown-item">No new notifications</li>';
+                            notificationCountElement.classList.add("d-none");
+                        }
+                    });
+            }
+
+            // Load notifications on page load
+            loadNotifications();
+        });
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

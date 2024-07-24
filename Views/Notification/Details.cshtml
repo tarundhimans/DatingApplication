@@ -1,0 +1,23 @@
+﻿@model DatingApplication.Models.Notification
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notification Details</title>
+</head>
+<body>
+    <h2>Notification Details</h2>
+    <p><strong>Message:</strong> @Model.Message</p>
+    <p><strong>Received at:</strong> @Model.CreatedAt.ToLocalTime()</p>
+
+    <form method="post" action="/Notification/ApproveLike">
+        <input type="hidden" name="notificationId" value="@Model.Id" />
+        <button type="submit">Approve</button>
+    </form>
+
+    <form method="post" action="/Notification/DeclineLike">
+        <input type="hidden" name="notificationId" value="@Model.Id" />
+        <button type="submit">Decline</button>
+    </form>
+</body>
+</html>

@@ -19,13 +19,19 @@ connection.on("ReceiveMessage", function (user, message) {
 var notificationCount = 0;
 
 // Handle incoming notifications
-connection.on("ReceiveNotification", function (message) {
+connection.on("ReceiveNotification", function (senderName, message, createdAt) {
     var notificationsList = document.getElementById("notificationsList");
     var notificationCountElement = document.getElementById("notificationCount");
 
+    // Convert createdAt to a JavaScript Date object
+    var date = new Date(createdAt);
+
+    // Format date as a string
+    var formattedDate = date.toLocaleString(); // Adjust formatting as needed
+
     var li = document.createElement("li");
     li.classList.add("dropdown-item");
-    li.textContent = message;
+    li.textContent = `${senderName} - ${message} (Received at: ${formattedDate})`;
 
     notificationsList.insertBefore(li, notificationsList.firstChild);
 

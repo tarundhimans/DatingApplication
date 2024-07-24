@@ -1,9 +1,10 @@
-﻿@model IEnumerable<DatingApplication.Models.Notification>
+﻿@model IEnumerable<DatingApplication.Models.Notification> 
 
-<!DOCTYPE html>
+
 <html>
 <head>
     <title>Notifications</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.14/signalr.min.js"></script>
 </head>
 <body>
     <h2>Notifications</h2>
@@ -12,7 +13,9 @@
         {
             foreach (var notification in Model)
             {
-                <li class="dropdown-item">@notification.Message</li>
+                <li class="dropdown-item" data-id="@notification.Id">
+                    @notification.Message
+                </li>
             }
         }
         else
@@ -20,8 +23,22 @@
             <li class="dropdown-item">No new notifications</li>
         }
     </ul>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.14/signalr.min.js"></script>
+
     <script src="~/js/chat.js"></script>
+    <script>
+        document.querySelectorAll(".dropdown-item").forEach(function (item) {
+            item.addEventListener("click", function () {
+                var notificationId = item.getAttribute("data-id");
+
+                // Mark the notification as read
+                fetch(`/Notification/MarkAsRead/${notificationId}`, {
+                    method: 'POST'
+                }).then(function () {
+                    // Redirect to the notification details page
+                    window.location.href = `/Notification/Details/${notificationId}`;
+                });
+            });
+        });
+    </script>
 </body>
 </html>
