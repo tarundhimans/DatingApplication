@@ -10,11 +10,7 @@
 <hr />
 
 <form asp-action="Create" enctype="multipart/form-data">
-@*     <div class="form-group">
-        <label asp-for="UserId" class="control-label"></label>
-        <input asp-for="UserId" class="form-control" />
-        <span asp-validation-for="UserId" class="text-danger"></span>
-    </div> *@
+    @Html.AntiForgeryToken()
     <div class="form-group">
         <label asp-for="Bio" class="control-label"></label>
         <input asp-for="Bio" class="form-control" />
@@ -65,3 +61,8 @@
         <input type="submit" value="Create" class="btn btn-primary" />
     </div>
 </form>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

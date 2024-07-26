@@ -37,7 +37,6 @@ namespace DatingApplication.Controllers
             return Json(new { notifications = notificationList });
         }
 
-
         public async Task<IActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -52,7 +51,6 @@ namespace DatingApplication.Controllers
             return View(notifications);
         }
         [HttpPost]
-        [HttpPost]
         public async Task<IActionResult> MarkAsRead(int id)
         {
             var notification = await _context.Notifications.FindAsync(id);
@@ -62,23 +60,21 @@ namespace DatingApplication.Controllers
                 _context.Notifications.Update(notification);
                 await _context.SaveChangesAsync();
             }
+
             return Ok();
         }
-
-       
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
             var notification = await _context.Notifications
-                                             .Include(n => n.User) // Ensure you include the sender's details
                                              .FirstOrDefaultAsync(n => n.Id == id);
 
             if (notification == null)
             {
-                return NotFound(); // Returns a 404 status if the notification is not found
+                return NotFound(); // Return 404 if the notification is not found
             }
 
-            // Optionally, mark as read here if needed
+            // Optionally, mark the notification as read
             if (!notification.IsRead)
             {
                 notification.IsRead = true;
@@ -86,29 +82,63 @@ namespace DatingApplication.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            return View(notification); // Returns the view with the notification details
+            // Retrieve sender profile details if SenderId is provided
+            Profile senderProfile = null;
+            if (!string.IsNullOrEmpty(notification.SenderId))
+            {
+                senderProfile = await _context.Profiles
+                                              .Include(p => p.User) // To include user details if needed
+                                              .FirstOrDefaultAsync(p => p.UserId == notification.SenderId);
+            }
+
+            // Prepare ViewModel
+            var viewModel = new NotificationDetailsViewModel
+            {
+                Notification = notification,
+                SenderProfile = senderProfile
+            };
+
+            return View(viewModel);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Like(int notificationId)
+        {
+            var notification = await _context.Notifications.FindAsync(notificationId);
+            if (notification != null)
+            {
+                var match = new Match
+                {
+                    UserId = notification.UserId,
+                    MatchedUserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    IsLiked = true
+                };
+                _context.Matches.Add(match);
+                _context.Notifications.Remove(notification);
+                await _context.SaveChangesAsync();
+
+                // Redirect to chat room
+                return RedirectToAction("Room", "Chat", new { userId1 = match.UserId, userId2 = match.MatchedUserId });
+            }
+            return RedirectToAction("Index");
+        }
 
 
         [HttpPost]
-        public async Task<IActionResult> ApproveLike(int notificationId)
+        public async Task<IActionResult> Dislike(int notificationId)
         {
             var notification = await _context.Notifications.FindAsync(notificationId);
-            
-            return RedirectToAction("Index"); // Redirect to the notification list or another relevant page
+            if (notification != null)
+            {
+                _context.Notifications.Remove(notification);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
         }
-
-        [HttpPost]
-        public async Task<IActionResult> DeclineLike(int notificationId)
-        {
-            var notification = await _context.Notifications.FindAsync(notificationId);
-            
-            return RedirectToAction("Index"); // Redirect to the notification list or another relevant page
-        }
-
-
-
     }
 
+
+
 }
+
+

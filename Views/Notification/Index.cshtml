@@ -1,34 +1,87 @@
-﻿@model IEnumerable<DatingApplication.Models.Notification> 
+﻿@model IEnumerable<DatingApplication.Models.Notification>
 
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notifications</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.14/signalr.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .notification-container {
+            margin-top: 50px;
+        }
+
+        .notification-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+            .notification-card:hover {
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
+
+        .notification-body {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .notification-date {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 10px;
+        }
+
+        .notification-card.unread .notification-body {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h2>Notifications</h2>
-    <ul id="notificationsList">
+    <div class="container notification-container">
+        <h2 class="text-center mb-4">Notifications</h2>
         @if (Model.Any())
         {
             foreach (var notification in Model)
             {
-                <li class="dropdown-item" data-id="@notification.Id">
-                    @notification.Message
-                </li>
+                var cardClass = notification.IsRead ? "notification-card" : "notification-card unread";
+                <div class="@cardClass" data-id="@notification.Id">
+
+                    <div class="notification-body">
+                        @notification.Message
+                    </div>
+                    <div class="notification-date">
+                        @notification.CreatedAt.ToString("MMMM dd, yyyy h:mm tt")
+                    </div>
+                </div>
             }
         }
         else
         {
-            <li class="dropdown-item">No new notifications</li>
+            <div class="notification-card">
+                <div class="notification-body text-center">
+                    No new notifications
+                </div>
+            </div>
         }
-    </ul>
+    </div>
 
-    <script src="~/js/chat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.querySelectorAll(".dropdown-item").forEach(function (item) {
-            item.addEventListener("click", function () {
-                var notificationId = item.getAttribute("data-id");
+        document.querySelectorAll(".notification-card").forEach(function (card) {
+            card.addEventListener("click", function () {
+                var notificationId = card.getAttribute("data-id");
 
                 // Mark the notification as read
                 fetch(`/Notification/MarkAsRead/${notificationId}`, {

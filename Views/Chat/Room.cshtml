@@ -1,0 +1,70 @@
+﻿@{
+    var userId1 = ViewBag.UserId1;
+    var userId2 = ViewBag.UserId2;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Room</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #chatContainer {
+            width: 50%;
+            margin: 0 auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #messagesList {
+            list-style-type: none;
+            padding: 0;
+            height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+
+        #messagesList li {
+            padding: 5px;
+            border-bottom: 1px solid #eee;
+        }
+
+        #messageInput {
+            width: 80%;
+            padding: 10px;
+            margin-right: 5px;
+        }
+
+        #sendButton {
+            padding: 10px 15px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chatContainer">
+        <h2>Chat Room</h2>
+        <ul id="messagesList">
+            @foreach (var message in ViewBag.Messages)
+            {
+                <li>
+                    <strong>@(message.SenderId == userId1 ? "Me" : "User"):</strong>
+                    @message.Content
+                    <br />
+                    <small>@message.Timestamp.ToLocalTime()</small>
+                </li>
+            }
+        </ul>
+        <input type="text" id="messageInput" placeholder="Type your message here..." />
+        <button id="sendButton">Send</button>
+    </div>
+<script src="~/js/chat.js"></script>
+    
+</body>
+</html>

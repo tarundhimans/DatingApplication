@@ -13,12 +13,13 @@ namespace DatingApplication.Models
 
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
-
+        public string? SenderId { get; set; }
         [Required]
         public string Message { get; set; }
 
         public DateTime CreatedAt { get; set; }
 
         public bool IsRead { get; set; }
+       
     }
 }

@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatingApplication.Hubs
 {
-
     public class ChatHub : Hub
     {
         private readonly ApplicationDbContext _context;
@@ -14,32 +13,80 @@ namespace DatingApplication.Hubs
         {
             _context = context;
         }
-        public async Task SendMessage(string user, string message)
+
+        public async Task SendMessage(string receiverId, string content)
         {
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
+            var senderId = Context.UserIdentifier;
+
+            
+            var sender = await _context.Users.FindAsync(senderId);
+            var receiver = await _context.Users.FindAsync(receiverId);
+
+            var message = new Message
+            {
+                SenderId = senderId,
+                ReceiverId = receiverId,
+                Content = content,
+                Timestamp = DateTime.UtcNow
+            };
+
+            // Save message to the database
+            _context.Messages.Add(message);
+            await _context.SaveChangesAsync();
+
+            // Send the message to the receiver and the sender with names
+            await Clients.User(receiverId).SendAsync("ReceiveMessage", senderId, sender.UserName, content, message.Timestamp);
+            await Clients.Caller.SendAsync("ReceiveMessage", senderId, receiver.UserName, content, message.Timestamp);
         }
+
+
         public async Task SendNotification(string userId, string message)
         {
-            // Get sender's details
-            var senderId = Context.UserIdentifier; // or fetch the sender's ID in another way
+            var senderId = Context.UserIdentifier;
             var sender = await _context.Users.FindAsync(senderId);
-            var senderName = sender?.UserName; // or sender.Email if preferred
+            var senderProfile = await _context.Profiles
+                                              .Where(p => p.UserId == senderId)
+                                              .Include(p => p.User) // Ensure User is included
+                                              .FirstOrDefaultAsync();
+
             var createdAt = DateTime.UtcNow;
 
             // Save notification to the database
             var notification = new Notification
             {
                 UserId = userId,
-                Message = $"{senderName}: {message}",
-                CreatedAt = DateTime.UtcNow,
+                SenderId = senderId,
+                Message = $"{senderProfile?.User.Name}: {message}",
+                CreatedAt = createdAt,
                 IsRead = false
             };
+
             _context.Notifications.Add(notification);
             await _context.SaveChangesAsync();
 
-            // Send notification to the user via SignalR
-            await Clients.User(userId).SendAsync("ReceiveNotification", senderName, message);
+            // Send notification to the user via SignalR, include profile info
+            await Clients.User(userId).SendAsync("ReceiveNotification", senderProfile?.User.Name, message, createdAt, senderProfile);
         }
 
+        public async Task LikeAndCreateChatRoom(string receiverId)
+        {
+            var senderId = Context.UserIdentifier;
+
+            // Create a unique chat room name
+            var chatRoomName = $"{senderId}-{receiverId}";
+
+            // Create chat room
+            await CreateChatRoom(senderId, receiverId);
+
+            // Notify the receiver about the new chat room
+            await Clients.User(receiverId).SendAsync("ChatRoomOpened", chatRoomName);
+        }
+
+        public async Task CreateChatRoom(string userId1, string userId2)
+        {
+            var groupName = $"{userId1}-{userId2}";
+            await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+            await Clients.Group(groupName).SendAsync("ChatRoomOpened", groupName);
+        }
     }
 }

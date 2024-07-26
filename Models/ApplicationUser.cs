@@ -19,5 +19,7 @@ namespace DatingApplication.Models
         public string State { get; set; }
         [NotMapped]
         public string Role { get; set; }
+      
+
     }
 }
