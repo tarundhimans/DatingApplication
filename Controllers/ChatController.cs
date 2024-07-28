@@ -39,9 +39,12 @@ namespace DatingApplication.Controllers
                 .OrderBy(m => m.Timestamp)
                 .ToListAsync();
 
+            var receiver = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId2);
+
             ViewBag.UserId1 = userId1;
             ViewBag.UserId2 = userId2;
             ViewBag.Messages = messages;
+            ViewBag.ReceiverName = receiver?.UserName; // Assuming UserName is the display name
 
             return View();
         }

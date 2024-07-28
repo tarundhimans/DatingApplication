@@ -6,14 +6,13 @@ var connection = new signalR.HubConnectionBuilder()
     .build();
 
 // Handle incoming messages
-connection.on("ReceiveMessage", function (senderId, name, content, timestamp) {
+connection.on("ReceiveMessage", function (senderId, content, timestamp) {
+    console.log("Received message from:", senderId, "Content:", content, "Timestamp:", timestamp);
     var messagesList = document.getElementById("messagesList");
     var li = document.createElement("li");
 
-    var currentUserId = "@(User.FindFirstValue(ClaimTypes.NameIdentifier))"; // Get the current user ID from the server
-
-    // Determine the display name based on the sender and receiver
-    var displayName = senderId === currentUserId ? "Me" : name;
+    var currentUserId = document.getElementById("currentUserId").value; // Get the current user ID from a hidden field
+    var displayName = senderId === currentUserId ? "Me" : document.getElementById("receiverName").value; // Get receiver name from a hidden field
 
     li.innerHTML = `<strong>${displayName}:</strong> ${content} <br /><small>${new Date(timestamp).toLocaleString()}</small>`;
     messagesList.appendChild(li);
@@ -48,7 +47,8 @@ connection.on("ChatRoomOpened", function (groupName) {
 
 // Start the SignalR connection
 connection.start().catch(function (err) {
-    return console.error(err.toString());
+    console.error(err.toString());
+    alert("Failed to connect to chat server. Please try again later.");
 });
 
 // Handle Like button click
@@ -57,7 +57,8 @@ document.querySelectorAll(".btn-like").forEach(function (button) {
         var userId = button.getAttribute("data-user-id");
         var message = "Like your post!";
         connection.invoke("SendNotification", userId, message).catch(function (err) {
-            return console.error(err.toString());
+            console.error(err.toString());
+            alert("Failed to send notification. Please try again.");
         });
     });
 });
@@ -68,7 +69,8 @@ document.querySelectorAll(".btn-dislike").forEach(function (button) {
         var userId = button.getAttribute("data-user-id");
         var message = "Dislike your post!";
         connection.invoke("SendNotification", userId, message).catch(function (err) {
-            return console.error(err.toString());
+            console.error(err.toString());
+            alert("Failed to send notification. Please try again.");
         });
     });
 });
@@ -76,12 +78,16 @@ document.querySelectorAll(".btn-dislike").forEach(function (button) {
 // Handle sending messages in the chat room
 document.getElementById("sendButton").addEventListener("click", function () {
     var messageContent = document.getElementById("messageInput").value;
-    connection.invoke("SendMessage", "@(userId2)", messageContent).catch(function (err) {
-        return console.error(err.toString());
+    var receiverId = document.getElementById("receiverId").value; // Receiver ID from a hidden field
+    console.log("Sending message to:", receiverId, "Content:", messageContent);
+
+    connection.invoke("SendMessage", receiverId, messageContent).catch(function (err) {
+        console.error(err.toString());
+        alert("Failed to send message. Please try again.");
     });
+
     document.getElementById("messageInput").value = "";
 });
-
 // Scroll to the bottom of the messages list on page load
 window.onload = function () {
     var messagesList = document.getElementById("messagesList");

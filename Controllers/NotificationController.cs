@@ -102,15 +102,18 @@ namespace DatingApplication.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Like(int notificationId)
+        public async Task<IActionResult> Like(int notificationId, string senderId)
         {
             var notification = await _context.Notifications.FindAsync(notificationId);
             if (notification != null)
             {
+                var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                // Create a new match entry if needed
                 var match = new Match
                 {
-                    UserId = notification.UserId,
-                    MatchedUserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    UserId = currentUserId,
+                    MatchedUserId = senderId,
                     IsLiked = true
                 };
                 _context.Matches.Add(match);
@@ -118,10 +121,11 @@ namespace DatingApplication.Controllers
                 await _context.SaveChangesAsync();
 
                 // Redirect to chat room
-                return RedirectToAction("Room", "Chat", new { userId1 = match.UserId, userId2 = match.MatchedUserId });
+                return RedirectToAction("Room", "Chat", new { userId1 = currentUserId, userId2 = senderId });
             }
             return RedirectToAction("Index");
         }
+
 
 
         [HttpPost]

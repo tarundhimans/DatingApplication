@@ -2,6 +2,8 @@
 using DatingApplication.Models;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace DatingApplication.Hubs
 {
@@ -18,10 +20,6 @@ namespace DatingApplication.Hubs
         {
             var senderId = Context.UserIdentifier;
 
-            
-            var sender = await _context.Users.FindAsync(senderId);
-            var receiver = await _context.Users.FindAsync(receiverId);
-
             var message = new Message
             {
                 SenderId = senderId,
@@ -34,10 +32,12 @@ namespace DatingApplication.Hubs
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
 
-            // Send the message to the receiver and the sender with names
-            await Clients.User(receiverId).SendAsync("ReceiveMessage", senderId, sender.UserName, content, message.Timestamp);
-            await Clients.Caller.SendAsync("ReceiveMessage", senderId, receiver.UserName, content, message.Timestamp);
+            // Send the message to the receiver
+            await Clients.User(receiverId).SendAsync("ReceiveMessage", senderId, content, message.Timestamp);
+            // Send the message to the sender as well
+            await Clients.User(senderId).SendAsync("ReceiveMessage", senderId, content, message.Timestamp);
         }
+
 
 
         public async Task SendNotification(string userId, string message)

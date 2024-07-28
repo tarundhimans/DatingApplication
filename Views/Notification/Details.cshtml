@@ -148,10 +148,10 @@
             </div>
         </div>
 
-
         <div class="button-container">
-            <form method="post" action="/Chat/Like">
-                <input type="hidden" name="receiverId" value="@Model.SenderProfile.User.Id" />
+            <form method="post" action="/Notification/Like">
+                <input type="hidden" name="notificationId" value="@Model.Notification.Id" />
+                <input type="hidden" name="senderId" value="@Model.SenderProfile.User.Id" />
                 <button type="submit" class="like-button">Like</button>
             </form>
 

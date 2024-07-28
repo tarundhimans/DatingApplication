@@ -1,6 +1,9 @@
-﻿@{
+﻿@model IEnumerable<DatingApplication.Models.Message>
+
+@{
     var userId1 = ViewBag.UserId1;
     var userId2 = ViewBag.UserId2;
+    var receiverName = ViewBag.ReceiverName;
 }
 
 <!DOCTYPE html>
@@ -31,10 +34,10 @@
             margin-bottom: 10px;
         }
 
-        #messagesList li {
-            padding: 5px;
-            border-bottom: 1px solid #eee;
-        }
+            #messagesList li {
+                padding: 5px;
+                border-bottom: 1px solid #eee;
+            }
 
         #messageInput {
             width: 80%;
@@ -49,12 +52,12 @@
 </head>
 <body>
     <div id="chatContainer">
-        <h2>Chat Room</h2>
+        <h2>Chat with @receiverName</h2>
         <ul id="messagesList">
             @foreach (var message in ViewBag.Messages)
             {
                 <li>
-                    <strong>@(message.SenderId == userId1 ? "Me" : "User"):</strong>
+                    <strong>@(message.SenderId == userId1 ? "Me" : receiverName):</strong>
                     @message.Content
                     <br />
                     <small>@message.Timestamp.ToLocalTime()</small>
@@ -64,7 +67,12 @@
         <input type="text" id="messageInput" placeholder="Type your message here..." />
         <button id="sendButton">Send</button>
     </div>
-<script src="~/js/chat.js"></script>
-    
+
+    <!-- Hidden fields to store necessary IDs and names for JavaScript -->
+    <input type="hidden" id="currentUserId" value="@userId1" />
+    <input type="hidden" id="receiverId" value="@userId2" />
+    <input type="hidden" id="receiverName" value="@receiverName" />
+
+    <script src="~/js/chat.js"></script>
 </body>
 </html>
