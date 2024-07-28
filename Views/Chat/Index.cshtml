@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<DatingApplication.Models.Match>
+@using System.Security.Claims
+@using System.Collections.Generic
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,22 +10,32 @@
     <title>Chat Rooms</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
         .chat-room {
-            transition: transform 0.2s ease-in-out;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border: none;
+            border-bottom: 1px solid #dee2e6;
+            transition: background-color 0.2s ease-in-out;
         }
 
             .chat-room:hover {
-                transform: scale(1.02);
+                background-color: #e9ecef;
             }
 
             .chat-room img {
                 border-radius: 50%;
+                width: 50px;
+                height: 50px;
                 margin-right: 15px;
             }
 
             .chat-room .chat-user-info {
-                display: flex;
-                align-items: center;
+                flex-grow: 1;
             }
 
             .chat-room .chat-user-name {
@@ -41,20 +53,25 @@
     <div class="container mt-5">
         <h2 class="text-center mb-4">Chat Rooms</h2>
         <div class="list-group">
+            @{
+                var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var displayedUserIds = new HashSet<string>(); // Set to track displayed user IDs
+            }
             @foreach (var match in Model)
             {
-                var currentUserId = User.Identity.Name; // Assuming User.Identity.Name holds the current user's ID
                 var otherUser = match.UserId == currentUserId ? match.MatchedUser : match.User;
 
-                <a href="/Chat/Room?userId1=@currentUserId&userId2=@otherUser.Id" class="list-group-item list-group-item-action chat-room">
-                    <div class="chat-user-info">
-                        <img src="https://via.placeholder.com/50" alt="User Avatar" class="img-fluid">
-                        <div>
+                if (otherUser.Id != currentUserId && !displayedUserIds.Contains(otherUser.Id)) // Ensure the current user is not shown and no duplicates
+                {
+                    displayedUserIds.Add(otherUser.Id); // Add the user ID to the set
+                    <a href="/Chat/Room?userId1=@currentUserId&userId2=@otherUser.Id" class="list-group-item list-group-item-action chat-room">
+
+                        <div class="chat-user-info">
                             <div class="chat-user-name">@otherUser.Name</div>
                             <div class="last-message">Last message snippet...</div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                }
             }
         </div>
     </div>

@@ -10,16 +10,13 @@ namespace DatingApplication.Hubs
     public class ChatHub : Hub
     {
         private readonly ApplicationDbContext _context;
-
         public ChatHub(ApplicationDbContext context)
         {
             _context = context;
         }
-
         public async Task SendMessage(string receiverId, string content)
         {
             var senderId = Context.UserIdentifier;
-
             var message = new Message
             {
                 SenderId = senderId,
@@ -37,17 +34,11 @@ namespace DatingApplication.Hubs
             // Send the message to the sender as well
             await Clients.User(senderId).SendAsync("ReceiveMessage", senderId, content, message.Timestamp);
         }
-
-
-
         public async Task SendNotification(string userId, string message)
         {
             var senderId = Context.UserIdentifier;
             var sender = await _context.Users.FindAsync(senderId);
-            var senderProfile = await _context.Profiles
-                                              .Where(p => p.UserId == senderId)
-                                              .Include(p => p.User) // Ensure User is included
-                                              .FirstOrDefaultAsync();
+            var senderProfile = await _context.Profiles.Where(p => p.UserId == senderId).Include(p => p.User).FirstOrDefaultAsync();
 
             var createdAt = DateTime.UtcNow;
 

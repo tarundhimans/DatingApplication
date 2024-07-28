@@ -3,7 +3,6 @@ using DatingApplication.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DatingApplication.Controllers
 {
@@ -18,6 +17,10 @@ namespace DatingApplication.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (userId == null)
@@ -37,9 +40,13 @@ namespace DatingApplication.Controllers
             return View(profile);
         }
 
-
         public IActionResult Create()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+
             return View();
         }
 
@@ -52,25 +59,31 @@ namespace DatingApplication.Controllers
                 ModelState.AddModelError("ProfilePicture", "Profile Picture is required.");
             }
 
-           
+         
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 profile.UserId = userId;
 
-                using (var memoryStream = new MemoryStream())
+                if (profilePicture != null && profilePicture.Length > 0)
                 {
-                    await profilePicture.CopyToAsync(memoryStream);
-                    profile.ProfilePicture = memoryStream.ToArray();
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await profilePicture.CopyToAsync(memoryStream);
+                        profile.ProfilePicture = memoryStream.ToArray();
+                    }
                 }
 
                 _context.Add(profile);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-     
+           
         }
 
-        // GET: Profiles/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -82,12 +95,9 @@ namespace DatingApplication.Controllers
                 return NotFound();
             }
 
-            // Retain the UserId for the view
-            ViewData["UserId"] = profile.UserId;
             return View(profile);
         }
 
-        // POST: Profiles/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Profile profile, IFormFile profilePicture)
@@ -97,51 +107,50 @@ namespace DatingApplication.Controllers
                 return NotFound();
             }
 
-            try
-            {
-                var existingProfile = await _context.Profiles.FindAsync(id);
-                if (existingProfile == null)
+            
+                try
                 {
-                    return NotFound();
-                }
-
-                // Update existing profile details
-                existingProfile.Bio = profile.Bio;
-                existingProfile.Preferences = profile.Preferences;
-                existingProfile.Day = profile.Day;
-                existingProfile.Month = profile.Month;
-                existingProfile.Year = profile.Year;
-                existingProfile.Gender = profile.Gender;
-                existingProfile.InterestedIn = profile.InterestedIn;
-
-                if (profilePicture != null && profilePicture.Length > 0)
-                {
-                    using (var memoryStream = new MemoryStream())
+                    var existingProfile = await _context.Profiles.FindAsync(id);
+                    if (existingProfile == null)
                     {
-                        await profilePicture.CopyToAsync(memoryStream);
-                        existingProfile.ProfilePicture = memoryStream.ToArray();
+                        return NotFound();
+                    }
+
+                    existingProfile.Bio = profile.Bio;
+                    existingProfile.Preferences = profile.Preferences;
+                    existingProfile.Day = profile.Day;
+                    existingProfile.Month = profile.Month;
+                    existingProfile.Year = profile.Year;
+                    existingProfile.Gender = profile.Gender;
+                    existingProfile.InterestedIn = profile.InterestedIn;
+
+                    if (profilePicture != null && profilePicture.Length > 0)
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await profilePicture.CopyToAsync(memoryStream);
+                            existingProfile.ProfilePicture = memoryStream.ToArray();
+                        }
+                    }
+
+                    _context.Update(existingProfile);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ProfileExists(profile.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
                     }
                 }
 
-                // Update the profile in the database
-                _context.Update(existingProfile);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProfileExists(profile.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
+            
         }
-
 
         private bool ProfileExists(int id)
         {

@@ -4,6 +4,7 @@
     var userId1 = ViewBag.UserId1;
     var userId2 = ViewBag.UserId2;
     var receiverName = ViewBag.ReceiverName;
+    var senderName = ViewBag.SenderName;
 }
 
 <!DOCTYPE html>
@@ -11,43 +12,76 @@
 <head>
     <title>Chat Room</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.7/signalr.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
         }
 
         #chatContainer {
-            width: 50%;
+            width: 60%;
             margin: 0 auto;
-            padding: 10px;
+            padding: 20px;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         #messagesList {
             list-style-type: none;
             padding: 0;
-            height: 300px;
+            height: 500px;
             overflow-y: scroll;
             border: 1px solid #ddd;
             margin-bottom: 10px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
         }
 
             #messagesList li {
-                padding: 5px;
-                border-bottom: 1px solid #eee;
+                padding: 10px;
+                margin: 5px;
+                border-radius: 10px;
+                max-width: 60%;
+                word-wrap: break-word;
             }
 
+        .sent {
+            background-color: #dcf8c6;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .received {
+            background-color: #ffffff;
+            margin-right: auto;
+            text-align: left;
+        }
+
         #messageInput {
-            width: 80%;
+            width: 75%;
             padding: 10px;
-            margin-right: 5px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            margin-right: 10px;
         }
 
         #sendButton {
             padding: 10px 15px;
+            background-color: #075e54;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
         }
+
+            #sendButton:hover {
+                background-color: #128c7e;
+            }
     </style>
 </head>
 <body>
@@ -56,9 +90,9 @@
         <ul id="messagesList">
             @foreach (var message in ViewBag.Messages)
             {
-                <li>
-                    <strong>@(message.SenderId == userId1 ? "Me" : receiverName):</strong>
-                    @message.Content
+                var messageClass = message.SenderId == userId1 ? "sent" : "received";
+                <li class="@messageClass">
+                    <strong>@(message.SenderId == userId1 ? "Me" : receiverName):</strong> @message.Content
                     <br />
                     <small>@message.Timestamp.ToLocalTime()</small>
                 </li>
@@ -72,6 +106,7 @@
     <input type="hidden" id="currentUserId" value="@userId1" />
     <input type="hidden" id="receiverId" value="@userId2" />
     <input type="hidden" id="receiverName" value="@receiverName" />
+    <input type="hidden" id="senderName" value="@senderName" />
 
     <script src="~/js/chat.js"></script>
 </body>

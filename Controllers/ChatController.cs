@@ -22,6 +22,10 @@ namespace DatingApplication.Controllers
 
         public async Task<IActionResult> Index()
         {
+             if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var matches = await _context.Matches
                 .Include(m => m.User)
@@ -34,17 +38,23 @@ namespace DatingApplication.Controllers
 
         public async Task<IActionResult> Room(string userId1, string userId2)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
             var messages = await _context.Messages
                 .Where(m => (m.SenderId == userId1 && m.ReceiverId == userId2) || (m.SenderId == userId2 && m.ReceiverId == userId1))
                 .OrderBy(m => m.Timestamp)
                 .ToListAsync();
 
             var receiver = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId2);
+            var sender = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId1);
 
             ViewBag.UserId1 = userId1;
             ViewBag.UserId2 = userId2;
             ViewBag.Messages = messages;
-            ViewBag.ReceiverName = receiver?.UserName; // Assuming UserName is the display name
+            ViewBag.ReceiverName = receiver?.UserName; 
+            ViewBag.SenderName = sender?.UserName; 
 
             return View();
         }
@@ -90,7 +100,9 @@ namespace DatingApplication.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            await _chatHubContext.Clients.User(receiverId).SendAsync("LikeAndCreateChatRoom", senderId);
+            // Notify both users to update their chat room lists
+            await _chatHubContext.Clients.User(receiverId).SendAsync("UpdateChatRooms", senderId);
+            await _chatHubContext.Clients.User(senderId).SendAsync("UpdateChatRooms", receiverId);
 
             return RedirectToAction("Index"); // Redirect to the chat index page
         }

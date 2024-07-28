@@ -10,41 +10,44 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
+            background-color: #e5ddd5;
         }
 
         .notification-container {
-            margin-top: 50px;
+            margin-top: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
         }
 
         .notification-card {
-            background-color: #fff;
-            border: 1px solid #ddd;
+            background-color: #dcf8c6;
             border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.3s ease;
+            padding: 10px 15px;
             margin-bottom: 15px;
-            cursor: pointer;
+            position: relative;
         }
-
-            .notification-card:hover {
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            }
 
         .notification-body {
             font-size: 16px;
-            color: #555;
+            color: #000;
         }
 
         .notification-date {
             font-size: 12px;
-            color: #6c757d;
-            margin-top: 10px;
+            color: #888;
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
         }
 
-        .notification-card.unread .notification-body {
-            font-weight: bold;
+        .notification-card.unread {
+            background-color: #fff;
+            border-left: 5px solid #25d366;
         }
     </style>
 </head>
@@ -57,7 +60,6 @@
             {
                 var cardClass = notification.IsRead ? "notification-card" : "notification-card unread";
                 <div class="@cardClass" data-id="@notification.Id">
-
                     <div class="notification-body">
                         @notification.Message
                     </div>

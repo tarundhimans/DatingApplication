@@ -11,28 +11,15 @@
         <input type="hidden" asp-for="Id" />
         <input type="hidden" asp-for="UserId" />
 
-        <div class="form-group text-center">
+        <div class="form-group">
             <label asp-for="ProfilePicture" class="control-label"></label>
-
-            <!-- Display current profile picture -->
+            <input type="file" asp-for="ProfilePicture" class="form-control" />
+            <span asp-validation-for="ProfilePicture" class="text-danger"></span>
             @if (Model.ProfilePicture != null && Model.ProfilePicture.Length > 0)
             {
-                <div class="current-profile-picture mb-3">
-                    <img src="@($"data:image/jpeg;base64,{Convert.ToBase64String(Model.ProfilePicture)}")" alt="Profile Picture" class="profile-picture-preview" />
-                </div>
+                <img src="data:image;base64,@Convert.ToBase64String(Model.ProfilePicture)" alt="Profile Picture" class="img-thumbnail mt-3" width="150" height="150" />
             }
-            else
-            {
-                <div class="current-profile-picture mb-3">
-                    <img src="~/images/default-profile.png" alt="Default Profile Picture" class="profile-picture-preview" />
-                </div>
-            }
-
-            <!-- File input for uploading a new profile picture -->
-            <input asp-for="ProfilePicture" type="file" class="form-control-file" />
-            <span asp-validation-for="ProfilePicture" class="text-danger"></span>
         </div>
-
         <div class="form-group">
             <label asp-for="Bio" class="control-label"></label>
             <textarea asp-for="Bio" class="form-control" rows="3" placeholder="Tell us about yourself..."></textarea>
@@ -45,22 +32,22 @@
             <span asp-validation-for="Preferences" class="text-danger"></span>
         </div>
 
-        <div class="form-group">
-            <label asp-for="Day" class="control-label"></label>
-            <input asp-for="Day" class="form-control" placeholder="Day" />
-            <span asp-validation-for="Day" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Month" class="control-label"></label>
-            <input asp-for="Month" class="form-control" placeholder="Month" />
-            <span asp-validation-for="Month" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Year" class="control-label"></label>
-            <input asp-for="Year" class="form-control" placeholder="Year" />
-            <span asp-validation-for="Year" class="text-danger"></span>
+        <div class="form-group d-flex">
+            <div class="me-2">
+                <label asp-for="Day" class="control-label"></label>
+                <input asp-for="Day" class="form-control" placeholder="Day" />
+                <span asp-validation-for="Day" class="text-danger"></span>
+            </div>
+            <div class="me-2">
+                <label asp-for="Month" class="control-label"></label>
+                <input asp-for="Month" class="form-control" placeholder="Month" />
+                <span asp-validation-for="Month" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" placeholder="Year" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
         </div>
 
         <div class="form-group">
@@ -78,8 +65,7 @@
                 <option value="Female">Female</option>
             </select>
             <span asp-validation-for="InterestedIn" class="text-danger"></span>
-        </div>  
-        <br/>
+        </div>
         <div class="text-center">
             <button type="submit" class="btn btn-primary btn-lg">Save Changes</button>
         </div>
@@ -88,11 +74,18 @@
 
 @section Styles {
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
         .profile-edit-form {
             background-color: #fff;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .current-profile-picture {
@@ -101,10 +94,10 @@
         }
 
         .profile-picture-preview {
-            width: 150px; /* Adjust size as needed */
-            height: 150px; /* Keep aspect ratio */
-            border-radius: 50%; /* Circular profile picture */
-            object-fit: cover; /* Cover the area without distortion */
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
         }
 
         .form-control-file {
@@ -119,19 +112,39 @@
             padding: 0.375rem 0.75rem;
         }
 
+        .form-group label {
+            font-weight: bold;
+            color: #555;
+        }
+
         .btn-primary {
-            background-color: #ff5a5f; /* Tinder-like red color */
-            border-color: #ff5a5f;
+            background-color: #25d366;
+            border-color: #25d366;
             color: #fff;
         }
 
             .btn-primary:hover {
-                background-color: #ff3b3f;
-                border-color: #ff3b3f;
+                background-color: #1ebe57;
+                border-color: #1ebe57;
             }
 
         .text-danger {
             color: #dc3545;
         }
+
+        .d-flex {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
     </style>
+}
+
+@section Scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.5.1.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/mvc/5.2.7/jquery.validate.unobtrusive.min.js"></script>
 }

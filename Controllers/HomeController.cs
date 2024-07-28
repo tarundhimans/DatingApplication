@@ -8,6 +8,7 @@ using System.Security.Claims;
 
 namespace DatingApplication.Controllers
 {
+    
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -32,24 +33,7 @@ namespace DatingApplication.Controllers
 
             return View(profiles);
         }
-
-        [HttpGet]
-        public async Task<IActionResult> SearchProfiles(string query)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var profiles = await _context.Profiles
-                .Include(p => p.User)
-                .Where(p => p.UserId != userId && (p.User.Name.Contains(query) || p.User.Email.Contains(query) || p.Bio.Contains(query)))
-                .ToListAsync();
-
-            return PartialView("_ProfilesList", profiles);
-        }
-
-
-
-        [HttpPost]
-      
+        [HttpPost]      
         public async Task<IActionResult> LikeProfile(string matchedUserId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -61,7 +45,6 @@ namespace DatingApplication.Controllers
                 IsLiked = true,
                 IsRejected = false
             };
-
             _context.Matches.Add(match);
 
             var notification = new Notification
@@ -71,12 +54,29 @@ namespace DatingApplication.Controllers
                 CreatedAt = DateTime.Now,
                 IsRead = false
             };
-
             _context.Notifications.Add(notification);
 
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public async Task<IActionResult> DislikeProfile(string dislikedUserId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var match = new Match
+            {
+                UserId = userId,
+                MatchedUserId = dislikedUserId,
+                IsLiked = false,
+                IsRejected = true
+            };
+            _context.Matches.Add(match);
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
         }
 
 

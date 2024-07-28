@@ -39,6 +39,10 @@ namespace DatingApplication.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var notifications = await _context.Notifications
                                               .Where(n => n.UserId == userId)
@@ -66,6 +70,10 @@ namespace DatingApplication.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
             var notification = await _context.Notifications
                                              .FirstOrDefaultAsync(n => n.Id == id);
 
