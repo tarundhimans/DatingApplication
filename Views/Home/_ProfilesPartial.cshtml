@@ -1,0 +1,30 @@
+﻿@model IEnumerable<DatingApplication.Models.Profile>
+
+@foreach (var profile in Model)
+{
+    <div class="swipe-card">
+        <div class="card-content">
+            @if (profile.ProfilePicture != null && profile.ProfilePicture.Length > 0)
+            {
+                <img src="@($"data:image/jpeg;base64,{Convert.ToBase64String(profile.ProfilePicture)}")" class="card-img" alt="Profile Picture">
+            }
+            else
+            {
+                <img src="~/images/default-profile.png" class="card-img" alt="Default Profile Picture">
+            }
+            <div class="card-details">
+                <h5 class="card-title">@profile.User.Name</h5>
+                <p class="card-email"><strong>Email:</strong> @profile.User.Email</p>
+                <p class="card-bio"><strong>Bio:</strong> @profile.Bio</p>
+                <p><strong>Preferences:</strong> @profile.Preferences</p>
+                <p><strong>Birthday:</strong> @($"{profile.Day}/{profile.Month}/{profile.Year}")</p>
+                <p><strong>Gender:</strong> @profile.Gender</p>
+                <p><strong>Interested In:</strong> @profile.InterestedIn</p>
+            </div>
+            <div class="card-actions">
+                <button class="btn btn-like" data-user-id="@profile.UserId"><i class="fas fa-thumbs-up"></i> Like</button>
+                <button class="btn btn-dislike" data-user-id="@profile.UserId"><i class="fas fa-thumbs-down"></i> Dislike</button>
+            </div>
+        </div>
+    </div>
+}
