@@ -13,7 +13,7 @@
 
         <div class="form-group">
             <label asp-for="ProfilePicture" class="control-label"></label>
-            <input type="file" asp-for="ProfilePicture" class="form-control" required />
+            <input type="file" asp-for="ProfilePicture" class="form-control" />
             <span asp-validation-for="ProfilePicture" class="text-danger"></span>
             @if (Model.ProfilePicture != null && Model.ProfilePicture.Length > 0)
             {
@@ -22,30 +22,30 @@
         </div>
         <div class="form-group">
             <label asp-for="Bio" class="control-label"></label>
-            <textarea asp-for="Bio" class="form-control" rows="3" placeholder="Tell us about yourself..." required></textarea>
+            <textarea asp-for="Bio" class="form-control" rows="3" placeholder="Tell us about yourself..."></textarea>
             <span asp-validation-for="Bio" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="Preferences" class="control-label"></label>
-            <input asp-for="Preferences" class="form-control" placeholder="What are your preferences?" required />
+            <input asp-for="Preferences" class="form-control" placeholder="What are your preferences?" />
             <span asp-validation-for="Preferences" class="text-danger"></span>
         </div>
 
         <div class="form-group d-flex">
             <div class="me-2">
                 <label asp-for="Day" class="control-label"></label>
-                <input asp-for="Day" class="form-control" placeholder="Day" min="1" max="31" />
+                <input asp-for="Day" class="form-control" placeholder="Day" />
                 <span asp-validation-for="Day" class="text-danger"></span>
             </div>
             <div class="me-2">
                 <label asp-for="Month" class="control-label"></label>
-                <input asp-for="Month" class="form-control" placeholder="Month" min="1" max="12" />
+                <input asp-for="Month" class="form-control" placeholder="Month" />
                 <span asp-validation-for="Month" class="text-danger"></span>
             </div>
             <div>
                 <label asp-for="Year" class="control-label"></label>
-                <input asp-for="Year" class="form-control" placeholder="Year" min="1970" max="2008" />
+                <input asp-for="Year" class="form-control" placeholder="Year" />
                 <span asp-validation-for="Year" class="text-danger"></span>
             </div>
         </div>

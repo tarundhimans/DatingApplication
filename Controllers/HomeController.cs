@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace DatingApplication.Controllers
 {
-
+    
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -33,23 +33,7 @@ namespace DatingApplication.Controllers
 
             return View(profiles);
         }
-
-        public async Task<IActionResult> SearchProfiles(string query)
-        {
-            if (string.IsNullOrEmpty(query))
-            {
-                return PartialView("_ProfilesPartial", await _context.Profiles.Include(p => p.User).ToListAsync());
-            }
-
-            var profiles = await _context.Profiles
-                .Include(p => p.User)
-                .Where(p => p.User.Name.Contains(query) || p.Bio.Contains(query))
-                .ToListAsync();
-
-            return PartialView("_ProfilesPartial", profiles);
-        }
-
-        [HttpPost]
+        [HttpPost]      
         public async Task<IActionResult> LikeProfile(string matchedUserId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

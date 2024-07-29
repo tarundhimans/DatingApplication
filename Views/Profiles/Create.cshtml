@@ -66,32 +66,32 @@
             @Html.AntiForgeryToken()
             <div class="form-group">
                 <label asp-for="Bio" class="control-label"></label>
-                <input asp-for="Bio" class="form-control" required />
+                <input asp-for="Bio" class="form-control" />
                 <span asp-validation-for="Bio" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Preferences" class="control-label"></label>
-                <input asp-for="Preferences" class="form-control" required />
+                <input asp-for="Preferences" class="form-control" />
                 <span asp-validation-for="Preferences" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ProfilePicture" class="control-label"></label>
-                <input type="file" asp-for="ProfilePicture" class="form-control" required />
+                <input type="file" asp-for="ProfilePicture" class="form-control" />
                 <span asp-validation-for="ProfilePicture" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Day" class="control-label"></label>
-                <input asp-for="Day" class="form-control" min="1" max="31" />
+                <input asp-for="Day" class="form-control" />
                 <span asp-validation-for="Day" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Month" class="control-label"></label>
-                <input asp-for="Month" class="form-control" min="1" max="12" />
+                <input asp-for="Month" class="form-control" />
                 <span asp-validation-for="Month" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Year" class="control-label"></label>
-                <input asp-for="Year" class="form-control" min="1970" max="2008" />
+                <input asp-for="Year" class="form-control" />
                 <span asp-validation-for="Year" class="text-danger"></span>
             </div>
             <div class="form-group">
