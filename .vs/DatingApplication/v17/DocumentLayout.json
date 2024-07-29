@@ -1,0 +1,446 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\New folder (3)\\DatingApplication\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\views\\profiles\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:views\\profiles\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\views\\profiles\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:views\\profiles\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\wwwroot\\js\\chat.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:wwwroot\\js\\chat.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\hubs\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:hubs\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\controllers\\notificationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:controllers\\notificationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\models\\profile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:models\\profile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\views\\chat\\room.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:views\\chat\\room.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\controllers\\profilescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:controllers\\profilescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/DatingApplication/True/SqlTable/dbo.Messages.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\New folder (3)\\DatingApplication\\Data\\Migrations\\20240728102502_updateprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Data\\Migrations\\20240728102502_updateprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\views\\notification\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:views\\notification\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\views\\notification\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:views\\notification\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\views\\chat\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:views\\chat\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\views\\profiles\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:views\\profiles\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\models\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:models\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\views\\chat\\like.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:views\\chat\\like.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\models\\match.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:models\\match.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|e:\\new folder (3)\\datingapplication\\models\\notificationdetailsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5211E407-88F2-4C24-88E6-788D5DED501B}|DatingApplication.csproj|solutionrelative:models\\notificationdetailsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ChatHub.cs",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Hubs\\ChatHub.cs",
+              "RelativeDocumentMoniker": "Hubs\\ChatHub.cs",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Hubs\\ChatHub.cs",
+              "RelativeToolTip": "Hubs\\ChatHub.cs",
+              "ViewState": "AQIAAD4AAAAAAAAAAAAmwFMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-25T09:20:49.028Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "NotificationController.cs",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Controllers\\NotificationController.cs",
+              "RelativeDocumentMoniker": "Controllers\\NotificationController.cs",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Controllers\\NotificationController.cs",
+              "RelativeToolTip": "Controllers\\NotificationController.cs",
+              "ViewState": "AQIAADkAAAAAAAAAAIA6wEsAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-25T09:22:26.309Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Views\\Home\\Index.cshtml",
+              "ViewState": "AQIAALEAAAAAAAAAAAAkwL4AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-26T07:24:54.053Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Controllers\\HomeController.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAAACIAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-28T08:06:19.718Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Views\\Profiles\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\Profiles\\Create.cshtml",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Views\\Profiles\\Create.cshtml",
+              "RelativeToolTip": "Views\\Profiles\\Create.cshtml",
+              "ViewState": "AQIAADwAAAAAAAAAAAAAAF0AAABRAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-28T10:50:36.194Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "chat.js",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\wwwroot\\js\\chat.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\chat.js",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\wwwroot\\js\\chat.js",
+              "RelativeToolTip": "wwwroot\\js\\chat.js",
+              "ViewState": "AQIAAFQAAAAAAAAAAAAkwFkAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-07-25T11:30:32.011Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Profile.cs",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Models\\Profile.cs",
+              "RelativeDocumentMoniker": "Models\\Profile.cs",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Models\\Profile.cs",
+              "RelativeToolTip": "Models\\Profile.cs",
+              "ViewState": "AQIAABkAAAAAAAAAAAAAABIAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-25T09:15:51.381Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Views\\Profiles\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Views\\Profiles\\Edit.cshtml",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Views\\Profiles\\Edit.cshtml",
+              "RelativeToolTip": "Views\\Profiles\\Edit.cshtml",
+              "ViewState": "AQIAABgAAAAAAAAAAAAAACMAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-28T07:43:20.697Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Room.cshtml",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Views\\Chat\\Room.cshtml",
+              "RelativeDocumentMoniker": "Views\\Chat\\Room.cshtml",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Views\\Chat\\Room.cshtml",
+              "RelativeToolTip": "Views\\Chat\\Room.cshtml",
+              "ViewState": "AQIAAFUAAAAAAAAAAAAAAGQAAABXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-25T12:30:26.056Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ChatController.cs",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Controllers\\ChatController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ChatController.cs",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Controllers\\ChatController.cs",
+              "RelativeToolTip": "Controllers\\ChatController.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAqwCsAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-25T12:29:40.12Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Like.cshtml",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Views\\Chat\\Like.cshtml",
+              "RelativeDocumentMoniker": "Views\\Chat\\Like.cshtml",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Views\\Chat\\Like.cshtml",
+              "RelativeToolTip": "Views\\Chat\\Like.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAQwAwAAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-26T05:22:33.494Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ProfilesController.cs",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Controllers\\ProfilesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ProfilesController.cs",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Controllers\\ProfilesController.cs",
+              "RelativeToolTip": "Controllers\\ProfilesController.cs",
+              "ViewState": "AQIAAEcAAAAAAAAAAAAtwFUAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-28T08:10:06.341Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "20240728102502_updateprofile.cs",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Data\\Migrations\\20240728102502_updateprofile.cs",
+              "RelativeDocumentMoniker": "Data\\Migrations\\20240728102502_updateprofile.cs",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Data\\Migrations\\20240728102502_updateprofile.cs",
+              "RelativeToolTip": "Data\\Migrations\\20240728102502_updateprofile.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-28T10:25:14.313Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-07-28T11:12:41.653Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAQwAwAAAA1AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-25T17:54:34.437Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Views\\Chat\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Chat\\Index.cshtml",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Views\\Chat\\Index.cshtml",
+              "RelativeToolTip": "Views\\Chat\\Index.cshtml",
+              "ViewState": "AQIAADkAAAAAAAAAAAAiwEMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-25T17:51:58.524Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Views\\Notification\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Notification\\Index.cshtml",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Views\\Notification\\Index.cshtml",
+              "RelativeToolTip": "Views\\Notification\\Index.cshtml",
+              "ViewState": "AQIAAC4AAAAAAAAAAAAiwGMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-25T17:16:59.77Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "dbo.Messages [Data]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/DatingApplication/True/SqlTable/dbo.Messages.sql",
+              "ToolTip": "dbo.Messages [Data]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2024-07-25T12:48:10.281Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Views\\Notification\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\Notification\\Details.cshtml",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Views\\Notification\\Details.cshtml",
+              "RelativeToolTip": "Views\\Notification\\Details.cshtml",
+              "ViewState": "AQIAAIAAAAAAAAAAAAAmwK8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-25T09:24:59.48Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "NotificationDetailsViewModel.cs",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Models\\NotificationDetailsViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\NotificationDetailsViewModel.cs",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Models\\NotificationDetailsViewModel.cs",
+              "RelativeToolTip": "Models\\NotificationDetailsViewModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-25T12:04:19.655Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Match.cs",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Models\\Match.cs",
+              "RelativeDocumentMoniker": "Models\\Match.cs",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Models\\Match.cs",
+              "RelativeToolTip": "Models\\Match.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAA3wAkAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-25T09:51:20.698Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Views\\Profiles\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Profiles\\Index.cshtml",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Views\\Profiles\\Index.cshtml",
+              "RelativeToolTip": "Views\\Profiles\\Index.cshtml",
+              "ViewState": "AQIAAGcAAAAAAAAAAAAcwH8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-25T12:12:25.991Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Message.cs",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Models\\Message.cs",
+              "RelativeDocumentMoniker": "Models\\Message.cs",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Models\\Message.cs",
+              "RelativeToolTip": "Models\\Message.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAwwBYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-25T10:11:46.443Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Notification.cs",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Models\\Notification.cs",
+              "RelativeDocumentMoniker": "Models\\Notification.cs",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Models\\Notification.cs",
+              "RelativeToolTip": "Models\\Notification.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-25T09:36:04.397Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ApplicationUser.cs",
+              "DocumentMoniker": "E:\\New folder (3)\\DatingApplication\\Models\\ApplicationUser.cs",
+              "RelativeDocumentMoniker": "Models\\ApplicationUser.cs",
+              "ToolTip": "E:\\New folder (3)\\DatingApplication\\Models\\ApplicationUser.cs",
+              "RelativeToolTip": "Models\\ApplicationUser.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAuwBkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-25T09:15:38.825Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
